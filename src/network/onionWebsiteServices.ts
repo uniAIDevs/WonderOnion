@@ -6,13 +6,16 @@ import {
   CreateOrUpdateOnionWebsiteType,
 } from '../types';
 import queryAsync from './apiClient';
+import { TOR_PROXY_CONFIG } from './torConfig';
+import { SocksProxyAgent } from 'socks-proxy-agent';
 
 export const getOnionWebsites = (
   page: number,
   limit: number = 10,
   search?: string,
 ) => {
-  return queryAsync<OnionWebsiteListType>({
+  const agent = new SocksProxyAgent(`socks5h://${TOR_PROXY_CONFIG.host}:${TOR_PROXY_CONFIG.port}`);
+  return queryAsync<OnionWebsiteListType>({ agent,
     path: `/onionWebsites`,
     type: 'GET',
     queryParams: {
@@ -26,14 +29,17 @@ export const getOnionWebsites = (
 };
 
 export const getOnionWebsite = (id: number) => {
-  return queryAsync<OnionWebsiteType>({
+  const agent = new SocksProxyAgent(`socks5h://${TOR_PROXY_CONFIG.host}:${TOR_PROXY_CONFIG.port}`);
+  return queryAsync<OnionWebsiteType>({ agent,
     path: `/onionWebsites/${id}`,
     type: 'GET',
   });
 };
 
 export const createOnionWebsite = (params: CreateOrUpdateOnionWebsiteType) => {
-  return queryAsync<OnionWebsiteType>({
+  const agent = new SocksProxyAgent(`socks5h://${TOR_PROXY_CONFIG.host}:${TOR_PROXY_CONFIG.port}`);
+  const agent = new SocksProxyAgent(`socks5h://${TOR_PROXY_CONFIG.host}:${TOR_PROXY_CONFIG.port}`);
+  return queryAsync<OnionWebsiteType>({ agent, agent,
     path: `/onionWebsites`,
     type: 'POST',
     data: { ...params },
@@ -52,14 +58,16 @@ export const updateOnionWebsite = (
 };
 
 export const deleteOnionWebsite = (id: number) => {
-  return queryAsync<BaseResponseType>({
+  const agent = new SocksProxyAgent(`socks5h://${TOR_PROXY_CONFIG.host}:${TOR_PROXY_CONFIG.port}`);
+  return queryAsync<BaseResponseType>({ agent,
     path: `/onionWebsites/${id}`,
     type: 'DELETE',
   });
 };
 
 export const getOnionWebsiteDropdown = (keyword?: string) => {
-  return queryAsync<OnionWebsiteDropdownType[]>({
+  const agent = new SocksProxyAgent(`socks5h://${TOR_PROXY_CONFIG.host}:${TOR_PROXY_CONFIG.port}`);
+  return queryAsync<OnionWebsiteDropdownType[]>({ agent,
     path: `/onionWebsites/dropdown`,
     type: 'GET',
     queryParams: {
